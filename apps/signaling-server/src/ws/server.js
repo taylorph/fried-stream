@@ -39,18 +39,28 @@ function startServer(port = 8080) {
     );
 
     ws.on("message", (data) => {
-      try {
-        const message = JSON.parse(data.toString());
+    let message;
 
-        console.log("Received message:", message);
+    try {
+        message = JSON.parse(data);
+    } catch (err) {
+        console.warn("❌ Invalid JSON received:", data.toString());
+        return; // DO NOT CRASH
+    }
 
+    if (!message || typeof message !== "object" || !message.type) {
+        console.warn("❌ Invalid message format:", message);
+        return; // DO NOT CRASH
+    }
+
+    try {
         routeMessage(message, {
-          clientId,
-          ws,
+        clientId,
+        ws,
         });
-      } catch (err) {
-        console.error("Invalid message:", err.message);
-      }
+    } catch (err) {
+        console.error("❌ Handler error:", err.message);
+    }
     });
 
     ws.on("close", () => {
