@@ -20,7 +20,7 @@ function handleCreateRoom(message, context) {
 
   ws.send(
     JSON.stringify({
-      type: messageTypes.ROOM_CREATED,
+      type: "room-created",
       code: room.code,
     })
   );

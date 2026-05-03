@@ -28,6 +28,10 @@ ws.onmessage = async (event) => {
     receiverId = msg.hostId || msg.fromId;
   }
 
+  if (msg.type === "join-rejected") {
+    statusEl.textContent = "Join rejected";
+  }
+
   if (msg.type === "answer") {
     await handleAnswer(msg.answer);
     statusEl.textContent = "Streaming connection established";
@@ -35,10 +39,6 @@ ws.onmessage = async (event) => {
 
   if (msg.type === "ice-candidate") {
     await handleIceCandidate(msg.candidate);
-  }
-
-  if (msg.type === "join-rejected") {
-    statusEl.textContent = "Join rejected";
   }
 };
 
