@@ -1,4 +1,5 @@
 // apps/signaling-server/src/rooms/roomService.js
+const { ROOM_CODE_TTL_MS } = require("../../../../packages/shared/constants/timeouts");
 
 const { generateCode } = require("../security/generateCode");
 const {
@@ -26,7 +27,7 @@ function createRoom(hostId) {
     clientId: null,
     approved: false,
     createdAt: Date.now(),
-    expiresAt: Date.now() + 2 * 60 * 1000,
+    expiresAt: Date.now() + ROOM_CODE_TTL_MS,
   };
 
   return saveRoom(room);
