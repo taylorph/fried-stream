@@ -1,6 +1,4 @@
-// apps/signaling-server/src/ws/handlers/approveJoin.js
-
-const { findRoom } = require("../../rooms/roomService");
+const { findRoom, approveViewer } = require("../../rooms/roomService");
 const { sendToClient } = require("../connectionRegistry");
 const messageTypes = require("../../../../../packages/shared/protocol/messageTypes");
 
@@ -8,7 +6,7 @@ function handleApproveJoin(message, context) {
   const { clientId } = context;
   const { code, requesterId } = message;
 
-  const room = findRoom(code);
+  const room = findRoom(String(code));
 
   if (!room) {
     console.warn("Cannot approve join. Room not found:", code);
@@ -20,13 +18,19 @@ function handleApproveJoin(message, context) {
     return;
   }
 
-  room.clientId = requesterId;
-  room.approved = true;
+  if (room.approvedViewers.has(requesterId)) {
+    console.warn("Viewer already approved:", requesterId);
+    return;
+  }
+
+  approveViewer(room, requesterId);
 
   sendToClient(requesterId, {
     type: messageTypes.JOIN_APPROVED,
     code,
   });
+
+  console.log(`Approved viewer ${requesterId} for room ${code}`);
 }
 
 module.exports = handleApproveJoin;
