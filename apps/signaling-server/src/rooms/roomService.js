@@ -41,6 +41,18 @@ function isRoomExpired(room) {
   return Date.now() > room.expiresAt;
 }
 
+function addViewer(room, viewerId) {
+  room.viewers.add(viewerId);
+}
+
+function approveViewer(room, viewerId) {
+  room.approvedViewers.add(viewerId);
+}
+
+function isViewerApproved(room, viewerId) {
+  return room.approvedViewers.has(viewerId);
+}
+
 function removeRoom(code) {
   return deleteRoomByCode(code);
 }
