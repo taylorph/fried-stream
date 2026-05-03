@@ -1,33 +1,38 @@
 // apps/signaling-server/src/ws/handlers/requestJoin.js
 
-const roomStore = require("../../rooms/roomStore");
+const { findRoom, isRoomExpired } = require("../../rooms/roomService");
 const { sendToClient } = require("../connectionRegistry");
 const messageTypes = require("../../../../../packages/shared/protocol/messageTypes");
 
 /**
- * Handle join request
+ * Handle join request.
  *
  * Human:
- * Someone enters a code and wants to connect.
+ * Someone enters a room code and asks the receiver for permission.
  *
  * Interview:
- * This handler validates the existence of a room and forwards a join request
- * to the room owner, enabling an approval-based connection model.
+ * This handler validates the room lookup and expiration state before forwarding
+ * the access request to the host, preserving the approval-based security model.
  */
 function handleRequestJoin(message, context) {
   const { clientId } = context;
   const { code } = message;
 
-  const room = roomStore.getRoom(code);
+  const room = findRoom(String(code));
 
   if (!room) {
     console.warn("Room not found for code:", code);
     return;
   }
 
-  // Notify room owner (receiver)
-  sendToClient(room.ownerId, {
-    type: messageTypes.JOIN_REQUEST,
+  if (isRoomExpired(room)) {
+    console.warn("Room expired for code:", code);
+    return;
+  }
+
+  sendToClient(room.hostId, {
+    type: messageTypes.JOIN_REQUESTED,
+    code: room.code,
     requesterId: clientId,
   });
 }
