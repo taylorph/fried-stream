@@ -1,6 +1,7 @@
 // apps/signaling-server/src/ws/messageRouter.js
 
 const messageTypes = require("../../../../packages/shared/protocol/messageTypes");
+const handleCreateRoom = require("./handlers/createRoom");
 
 /**
  * Message Router
@@ -18,6 +19,9 @@ const handlers = {};
 function registerHandler(type, handler) {
   handlers[type] = handler;
 }
+
+// Register handlers
+registerHandler(messageTypes.CREATE_ROOM, handleCreateRoom);
 
 function routeMessage(message, context) {
   const handler = handlers[message.type];
