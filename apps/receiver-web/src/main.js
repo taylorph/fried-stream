@@ -1,17 +1,25 @@
+import {
+  initReceiverConnection,
+  handleOffer,
+  handleIceCandidate,
+} from "./webrtc/peerConnection.js";
+
 const ws = new WebSocket("ws://localhost:8080");
 
 let currentRoomCode = null;
 let lastRequesterId = null;
 
-const statusEl = document.getElementById("status");
 const roomCodeEl = document.getElementById("roomCode");
+const statusEl = document.getElementById("status");
 const requesterEl = document.getElementById("requester");
+const remoteVideo = document.getElementById("remoteVideo");
 
 ws.onopen = () => {
-  statusEl.textContent = "Connected to server";
+  statusEl.textContent = "Connected";
+  initReceiverConnection(ws, remoteVideo);
 };
 
-ws.onmessage = (event) => {
+ws.onmessage = async (event) => {
   const msg = JSON.parse(event.data);
   console.log("Incoming:", msg);
 
@@ -23,6 +31,15 @@ ws.onmessage = (event) => {
   if (msg.type === "join-requested") {
     lastRequesterId = msg.requesterId;
     requesterEl.textContent = msg.requesterId;
+  }
+
+  if (msg.type === "offer") {
+    await handleOffer(msg.offer, msg.fromId);
+    statusEl.textContent = "Receiving stream";
+  }
+
+  if (msg.type === "ice-candidate") {
+    await handleIceCandidate(msg.candidate);
   }
 };
 

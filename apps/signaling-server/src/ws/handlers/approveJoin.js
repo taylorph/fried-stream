@@ -18,16 +18,12 @@ function handleApproveJoin(message, context) {
     return;
   }
 
-  if (room.approvedViewers.has(requesterId)) {
-    console.warn("Viewer already approved:", requesterId);
-    return;
-  }
-
   approveViewer(room, requesterId);
 
   sendToClient(requesterId, {
     type: messageTypes.JOIN_APPROVED,
     code,
+    hostId: room.hostId,
   });
 
   console.log(`Approved viewer ${requesterId} for room ${code}`);
