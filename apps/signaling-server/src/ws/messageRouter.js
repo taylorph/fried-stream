@@ -2,6 +2,9 @@
 
 const messageTypes = require("../../../../packages/shared/protocol/messageTypes");
 const handleCreateRoom = require("./handlers/createRoom");
+const handleRequestJoin = require("./handlers/requestJoin");
+const handleApproveJoin = require("./handlers/approveJoin");
+const handleRejectJoin = require("./handlers/rejectJoin");
 
 /**
  * Message Router
@@ -22,6 +25,9 @@ function registerHandler(type, handler) {
 
 // Register handlers
 registerHandler(messageTypes.CREATE_ROOM, handleCreateRoom);
+registerHandler(messageTypes.REQUEST_JOIN, handleRequestJoin);
+registerHandler(messageTypes.APPROVE_JOIN, handleApproveJoin);
+registerHandler(messageTypes.REJECT_JOIN, handleRejectJoin);
 
 function routeMessage(message, context) {
   const handler = handlers[message.type];
