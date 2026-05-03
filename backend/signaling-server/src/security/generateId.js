@@ -3,10 +3,10 @@
 /**
  * Generates a unique client ID.
  *
- * Human:
+ * 
  * Every connected user gets a unique ID.
  *
- * Interview:
+ * 
  * This function creates a lightweight unique identifier
  * to track client connections within the signaling layer.
  */

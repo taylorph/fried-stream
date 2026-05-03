@@ -12,10 +12,10 @@ const { routeMessage } = require("./messageRouter");
 /**
  * Start WebSocket server.
  *
- * Human:
+ * 
  * Starts the backend and listens for browser/device connections.
  *
- * Interview:
+ * 
  * Establishes persistent WebSocket connections, assigns client identities,
  * registers active sockets, and delegates message handling to the router.
  */
@@ -45,12 +45,12 @@ function startServer(port = 8080) {
     try {
         message = JSON.parse(data);
     } catch (err) {
-        console.warn("❌ Invalid JSON received:", data.toString());
+        console.warn(" Invalid JSON received:", data.toString());
         return; // DO NOT CRASH
     }
 
     if (!message || typeof message !== "object" || !message.type) {
-        console.warn("❌ Invalid message format:", message);
+        console.warn(" Invalid message format:", message);
         return; // DO NOT CRASH
     }
 
@@ -60,7 +60,7 @@ function startServer(port = 8080) {
         ws,
         });
     } catch (err) {
-        console.error("❌ Handler error:", err.message);
+        console.error(" Handler error:", err.message);
     }
     });
 

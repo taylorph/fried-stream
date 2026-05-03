@@ -3,10 +3,10 @@
 /**
  * In-memory room storage.
  *
- * Human:
+ * 
  * This keeps track of active rooms while the server is running.
  *
- * Interview:
+ * 
  * This module abstracts room persistence behind a small API. For the MVP,
  * we use a JavaScript Map as an in-memory store, giving average-case O(1)
  * insert, lookup, and delete operations by room code.

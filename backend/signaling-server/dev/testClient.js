@@ -58,14 +58,14 @@ function connect() {
     }
 
     if (msg.type === "join-rejected") {
-      console.log("❌ Join rejected.");
+      console.log(" Join rejected.");
     }
 
     showMenu();
   });
 
   ws.on("close", () => {
-    console.log("\n❌ Disconnected from server");
+    console.log("\n Disconnected from server");
     process.exit(0);
   });
 
@@ -79,7 +79,7 @@ function connect() {
 // =============================
 function send(msg) {
   if (!ws || ws.readyState !== WebSocket.OPEN) {
-    console.log("⚠️ Not connected");
+    console.log("⚠ Not connected");
     return;
   }
 
@@ -141,7 +141,7 @@ function handleInput(input) {
 
     case "3":
       if (!currentRoomCode || !lastRequesterId) {
-        console.log("⚠️ Missing room or requester");
+        console.log("⚠ Missing room or requester");
       } else {
         send({
           type: "approve-join",
@@ -153,7 +153,7 @@ function handleInput(input) {
 
     case "4":
       if (!currentRoomCode || !lastRequesterId) {
-        console.log("⚠️ Missing room or requester");
+        console.log("⚠ Missing room or requester");
       } else {
         send({
           type: "reject-join",

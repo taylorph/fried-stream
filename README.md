@@ -127,3 +127,66 @@ We intentionally use raw string message types instead of enums for simplicity an
 Example:
 ```js
 "type": "create-room"
+
+---
+
+## QA / System Verification
+
+This section defines how to validate that the system works end-to-end.
+
+### 1. Receiver Flow (Room Creation)
+
+- Open receiver client
+- Click "Create Room"
+- Expected:
+  - WebSocket connects successfully
+  - Room code appears
+  - Backend logs room creation event
+
+### 2. Sender Join Flow
+
+- Open sender client
+- Enter room code
+- Request to join room
+- Expected:
+  - Receiver sees join request
+  - Requester ID appears in UI
+
+### 3. Approval Flow
+
+- Receiver clicks "Approve"
+- Expected:
+  - Sender receives approval
+  - WebRTC negotiation starts
+
+### 4. WebRTC Connection
+
+- After approval:
+  - Offer → Answer exchange occurs
+  - ICE candidates are exchanged
+  - Peer connection is established
+
+### 5. Media Streaming
+
+- Sender starts stream
+- Receiver video element should display live feed
+- Expected:
+  - Low latency peer-to-peer video
+  - No server media handling
+
+---
+
+## Failure Cases to Watch
+
+- Room created but sender cannot join → signaling mismatch
+- Join request appears but approval does nothing → missing handler binding
+- Offer sent but no video → ICE failure or peer connection issue
+- WebSocket connects but no events → script path/module load issue
+
+---
+
+## Debug Tools Used
+
+- In-app debug panel for receiver
+- Console logs for sender
+- WebSocket server logs for signaling flow tracing

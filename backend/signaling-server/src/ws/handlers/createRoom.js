@@ -6,10 +6,10 @@ const messageTypes = require("../../../../../packages/shared/protocol/messageTyp
 /**
  * Handle room creation
  *
- * Human:
+ * 
  * When a receiver asks for a room, we create one and send back a code.
  *
- * Interview:
+ * 
  * This handler processes a room creation request and responds with a
  * session identifier, enabling clients to initiate a pairing workflow.
  */

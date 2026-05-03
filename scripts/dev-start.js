@@ -6,7 +6,7 @@ function run(cmd, args, label) {
   return p;
 }
 
-console.log("\n🚀 Starting FriedStream...\n");
+console.log("\n Starting FriedStream...\n");
 
 // Start signaling server
 run("node", ["apps/signaling-server/src/index.js"], "SIGNALING");

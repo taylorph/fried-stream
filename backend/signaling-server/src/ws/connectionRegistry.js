@@ -3,10 +3,10 @@
 /**
  * Connection Registry
  *
- * Human:
+ * 
  * Keeps track of all connected users and their WebSocket connections.
  *
- * Interview:
+ * 
  * This module maintains an in-memory mapping between client IDs and their
  * active WebSocket connections, enabling efficient message routing
  * in a real-time signaling system.

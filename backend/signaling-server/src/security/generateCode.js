@@ -3,10 +3,10 @@
 /**
  * Generates a 6-digit room code.
  *
- * Human:
+ * 
  * This is the code the receiver shows to the sender.
  *
- * Interview:
+ * 
  * This function generates a bounded random numeric identifier
  * used as a short-lived access key for session pairing.
  */

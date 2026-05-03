@@ -7,10 +7,10 @@ const messageTypes = require("../../../../../packages/shared/protocol/messageTyp
 /**
  * Handle join request.
  *
- * Human:
+ * 
  * Someone enters a room code and asks the receiver for permission.
  *
- * Interview:
+ * 
  * This handler validates the room lookup and expiration state before forwarding
  * the access request to the host, preserving the approval-based security model.
  */
