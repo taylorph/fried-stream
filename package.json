@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "dev": "node scripts/dev-start.js"
+  },
   "devDependencies": {
     "@types/ws": "^8.18.1"
   },

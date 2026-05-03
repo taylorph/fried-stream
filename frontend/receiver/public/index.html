@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FriedStream Receiver</title>
+</head>
+<body>
+  <h1>FriedStream Receiver</h1>
+
+  <button id="createRoomBtn">Create Room</button>
+
+  <h2>Room Code:</h2>
+  <pre id="roomCode">N/A</pre>
+
+  <h2>Status:</h2>
+  <pre id="status">Not connected</pre>
+
+  <h2>Join Request:</h2>
+  <pre id="requester">None</pre>
+
+  <button id="approveBtn">Approve</button>
+  <button id="rejectBtn">Reject</button>
+
+  <h2>Incoming Stream:</h2>
+  <video id="remoteVideo" autoplay playsinline controls style="width: 640px; max-width: 100%; background: #111;"></video>
+
+  <script type="module" src="/receiver/src/main.js"></script>
+</body>
+</html>
