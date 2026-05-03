@@ -1,6 +1,6 @@
 // apps/signaling-server/src/rooms/roomService.js
-const { ROOM_CODE_TTL_MS } = require("../../../../packages/shared/constants/timeouts");
 
+const { ROOM_CODE_TTL_MS } = require("../../../../packages/shared/constants/timeouts");
 const { generateCode } = require("../security/generateCode");
 const {
   saveRoom,
@@ -8,24 +8,16 @@ const {
   deleteRoomByCode,
 } = require("./roomStore");
 
-/**
- * Creates a temporary room owned by a receiver.
- *
- * Human:
- * When a receiver opens the app, this creates the room and pairing code.
- *
- * Interview:
- * This function encapsulates room creation business logic, keeping room state
- * management separate from the WebSocket transport layer.
- */
 function createRoom(hostId) {
   const code = String(generateCode());
 
   const room = {
     code,
     hostId,
-    clientId: null,
-    approved: false,
+
+    viewers: new Set(),
+    approvedViewers: new Set(),
+
     createdAt: Date.now(),
     expiresAt: Date.now() + ROOM_CODE_TTL_MS,
   };
@@ -34,7 +26,7 @@ function createRoom(hostId) {
 }
 
 function findRoom(code) {
-  return getRoomByCode(code);
+  return getRoomByCode(String(code));
 }
 
 function isRoomExpired(room) {
@@ -54,12 +46,15 @@ function isViewerApproved(room, viewerId) {
 }
 
 function removeRoom(code) {
-  return deleteRoomByCode(code);
+  return deleteRoomByCode(String(code));
 }
 
 module.exports = {
   createRoom,
   findRoom,
   isRoomExpired,
+  addViewer,
+  approveViewer,
+  isViewerApproved,
   removeRoom,
 };
