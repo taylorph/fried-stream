@@ -25,7 +25,14 @@ export async function createOffer(stream, receiverId) {
   window.receiverId = receiverId;
 
   stream.getTracks().forEach((track) => {
-    pc.addTrack(track, stream);
+    if (track.kind === "video") {
+      pc.addTransceiver(track, {
+        streams: [stream],
+        sendEncodings: [{ maxBitrate: 8_000_000 }],
+      });
+    } else {
+      pc.addTrack(track, stream);
+    }
   });
 
   const offer = await pc.createOffer();

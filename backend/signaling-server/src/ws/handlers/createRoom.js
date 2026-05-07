@@ -3,16 +3,6 @@
 const { createRoom } = require("../../rooms/roomService");
 const messageTypes = require("../../../../../packages/shared/protocol/messageTypes");
 
-/**
- * Handle room creation
- *
- * 
- * When a receiver asks for a room, we create one and send back a code.
- *
- * 
- * This handler processes a room creation request and responds with a
- * session identifier, enabling clients to initiate a pairing workflow.
- */
 function handleCreateRoom(message, context) {
   const { clientId, ws } = context;
 

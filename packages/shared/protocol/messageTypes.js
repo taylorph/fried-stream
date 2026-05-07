@@ -1,17 +1,5 @@
 // packages/shared/protocol/messageTypes.js
 
-/**
- * Centralized message types for FriedStream's signaling protocol.
- *
- * Human version:
- * These are the allowed "messages" sender, receiver, and server can send.
- *
- * Interview version:
- * This file acts like an enum-style single source of truth for the
- * event-driven signaling protocol, reducing typo bugs and keeping
- * communication consistent across distributed components.
- */
-
 // Connection lifecycle
 const CONNECT = "connect";
 const DISCONNECT = "disconnect";

@@ -4,16 +4,6 @@ const { findRoom, isRoomExpired } = require("../../rooms/roomService");
 const { sendToClient } = require("../connectionRegistry");
 const messageTypes = require("../../../../../packages/shared/protocol/messageTypes");
 
-/**
- * Handle join request.
- *
- * 
- * Someone enters a room code and asks the receiver for permission.
- *
- * 
- * This handler validates the room lookup and expiration state before forwarding
- * the access request to the host, preserving the approval-based security model.
- */
 function handleRequestJoin(message, context) {
   const { clientId } = context;
   const { code } = message;

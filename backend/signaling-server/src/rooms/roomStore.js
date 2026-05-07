@@ -1,17 +1,5 @@
 // apps/signaling-server/src/rooms/roomStore.js
 
-/**
- * In-memory room storage.
- *
- * 
- * This keeps track of active rooms while the server is running.
- *
- * 
- * This module abstracts room persistence behind a small API. For the MVP,
- * we use a JavaScript Map as an in-memory store, giving average-case O(1)
- * insert, lookup, and delete operations by room code.
- */
-
 const roomsByCode = new Map();
 
 function saveRoom(room) {

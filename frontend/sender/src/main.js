@@ -60,7 +60,11 @@ document.getElementById("startStreamBtn").onclick = async () => {
   }
 
   localStream = await navigator.mediaDevices.getDisplayMedia({
-    video: true,
+    video: {
+      frameRate: { ideal: 30, max: 60 },
+      width: { ideal: 1920 },
+      height: { ideal: 1080 },
+    },
     audio: true,
   });
 

@@ -9,16 +9,6 @@ const {
 } = require("./connectionRegistry");
 const { routeMessage } = require("./messageRouter");
 
-/**
- * Start WebSocket server.
- *
- * 
- * Starts the backend and listens for browser/device connections.
- *
- * 
- * Establishes persistent WebSocket connections, assigns client identities,
- * registers active sockets, and delegates message handling to the router.
- */
 function startServer(port = 8080) {
   const wss = new WebSocket.Server({ port });
 

@@ -27,14 +27,14 @@ function connect() {
   ws = new WebSocket("ws://localhost:8080");
 
   ws.on("open", () => {
-    console.log("\n✅ Connected to signaling server");
+    console.log("\nConnected to signaling server");
     showMenu();
   });
 
   ws.on("message", (data) => {
     const msg = JSON.parse(data);
 
-    console.log("\n📩 Incoming:", msg);
+    console.log("\nIncoming:", msg);
 
     if (msg.type === "connect") {
       clientId = msg.clientId;
@@ -43,18 +43,18 @@ function connect() {
 
     if (msg.type === "room-created") {
       currentRoomCode = msg.code;
-      console.log(`🎯 Room created: ${currentRoomCode}`);
+      console.log(`Room created: ${currentRoomCode}`);
     }
 
     if (msg.type === "join-requested") {
       lastRequesterId = msg.requesterId;
       currentRoomCode = msg.code;
-      console.log(`🚨 Join request from: ${lastRequesterId}`);
+      console.log(`Join request from: ${lastRequesterId}`);
     }
 
     if (msg.type === "join-approved") {
       currentRoomCode = msg.code;
-      console.log("✅ Join approved! Ready to connect.");
+      console.log("Join approved. Ready to connect.");
     }
 
     if (msg.type === "join-rejected") {
@@ -172,7 +172,7 @@ function handleInput(input) {
       break;
 
     case "6":
-      console.log("👋 Exiting...");
+      console.log("Exiting...");
       process.exit(0);
 
     default:
